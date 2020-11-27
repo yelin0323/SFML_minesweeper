@@ -23,11 +23,6 @@ int main()
 		window.display();
 	}
 
-	if (window.isOpen())
-	{
-		window.close();
-		int test = 0;
-	}
 
 	return 0;
 }
