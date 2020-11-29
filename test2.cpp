@@ -19,8 +19,8 @@ int main()
 	Sprite s(t);
 
 	for (int i = 1; i <= 10; i++)
-		for (int j = 1; j <= 10; j++) {s
-			sgrid[i][j] = 10;
+		for (int j = 1; j <= 10; j++) {
+			grid[i][j] = 10;
 
 			if (rand() % 5 == 0) grid[i][j] = 9;
 			else grid[i][j] = 0;
