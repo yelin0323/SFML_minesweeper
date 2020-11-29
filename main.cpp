@@ -15,21 +15,12 @@ private:
 };
 
 
-class board
-{
-public:
-
-private:
-	void gameover();	//지뢰를 다 찾았는지, 지뢰를 눌렀는지 (게임이끝났는지확인)
-};
-
-
-
-
 int main()
 {
-	board board;
 	tile tiles[12][12];
+	tile stile[12][12];
+
+	int mineCount = 0;
 
 	RenderWindow minesweeper(VideoMode(400, 400), "Start The Minesweeper");
 
@@ -45,7 +36,11 @@ int main()
 			tiles[i][j].flag = 0;
 			tiles[i][j].open = 0;
 
-			if (rand() % 5 == 0) tiles[i][j].count = 9;
+			if (rand() % 5 == 0 && mineCount < 10)
+			{
+				tiles[i][j].count = 9;
+				mineCount++;
+			}
 			else tiles[i][j].count = 0;
 		}
 	}
@@ -72,7 +67,7 @@ int main()
 		}
 	}
 
-	/*
+	
 	int w = 32;
 
 	while (minesweeper.isOpen())
@@ -88,8 +83,29 @@ int main()
 				minesweeper.close();
 
 			if (e.type == Event::MouseButtonPressed)
-				if (e.key.code == Mouse::Left) sgrid[x][y] = grid[x][y];
-				else if (e.key.code == Mouse::Right) sgrid[x][y] = 11;
+				if (e.key.code == Mouse::Left)
+				{
+					stile[x][y] = tiles[x][y];
+					//0인거 눌렀을 때 0 전부다 open되는 코드 짜보자
+					if (stile[x][y].count == 0)
+					{
+						for (int m = 1; m <= 10; m++)
+						{
+							for (int n = 1; n <= 10; n++)
+							{
+								if (tiles[m][n].count == 0)
+								{
+									stile[m][n] = tiles[m][n];
+									s.setTextureRect(IntRect(stile[m][n].count * w, 0, w, w));
+									s.setPosition(m * w, n * w);
+									minesweeper.draw(s);
+								}
+
+							}
+						}
+					}
+				}
+				else if (e.key.code == Mouse::Right) stile[x][y].count = 11;
 
 		}
 
@@ -97,20 +113,21 @@ int main()
 		for (int i = 1; i <= 10; i++)
 			for (int j = 1; j <= 10; j++) {
 
-				if (sgrid[x][y] == 9) sgrid[i][j] = grid[i][j];
+				if (stile[x][y].count == 9) stile[i][j] = tiles[i][j];
 
-				s.setTextureRect(IntRect(sgrid[i][j] * w, 0, w, w));
+				s.setTextureRect(IntRect(stile[i][j].count * w, 0, w, w));
 				s.setPosition(i * w, j * w);
 				minesweeper.draw(s);
+
 			}
+
+
 
 		minesweeper.display();
 
-
-
 	}
 	
-	*/
+	
 	
 
 	return 0;
