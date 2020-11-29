@@ -26,6 +26,9 @@ int main()
 			else grid[i][j] = 0;
 		}
 
+
+	//지뢰이면(9이면) continue
+	//주변에 지뢰가 몇개인지
 	for (int i = 1; i <= 10; i++)
 		for (int j = 1; j <= 10; j++) {
 			int n = 0;
