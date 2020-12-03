@@ -86,7 +86,6 @@ int main()
 				if (e.key.code == Mouse::Left)
 				{
 					stile[x][y] = tiles[x][y];
-					//0인거 눌렀을 때 0 전부다 open되는 코드 짜보자
 					if (stile[x][y].count == 0)
 					{
 						for (int m = 1; m <= 10; m++)
