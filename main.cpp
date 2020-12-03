@@ -20,10 +20,10 @@ int main()
 	Tile tiles[12][12];
 	Tile stile[12][12];
 
-	//srand((unsigned int)time(NULL));
+	srand((unsigned int)time(NULL));
 
 	int mineCount = 0;
-	int minenum = 5;	//지뢰를 설치하고 8개 내에는 지뢰 설치 금지
+	int minenum = 3;	//지뢰를 설치하고 5개 내에는 지뢰 설치 금지
 
 	RenderWindow minesweeper(VideoMode(400, 400), "Start The Minesweeper");
 
@@ -35,7 +35,8 @@ int main()
 	{
 		for (int j = 1; j <= 10; j++)
 		{
-			if (rand() % 5 == 0 && mineCount < 10 && minenum >= 4)
+			int num = rand();
+			if (num % 5 == 0 && mineCount < 10 && minenum >= 3)
 			{
 				tiles[i][j].count = 9;
 				mineCount++;
