@@ -1,26 +1,29 @@
 #include<SFML/Graphics.hpp>
-#include<time.h>
+#include<ctime>
 
 using namespace sf;
 
-class tile
+class Tile
 {
 public:
 	int count; //지뢰면 9, 아니면 주변 지뢰의 수
 	int open;	//0이면 close, 1이면 open
 	int flag;
+	Tile() : count(10), open(0), flag(0) {};
 private:
 	void isOpne();
 	void flagcheck();	//flag와 실제 지뢰가 같은지
 };
 
-
 int main()
 {
-	tile tiles[12][12];
-	tile stile[12][12];
+	Tile tiles[12][12];
+	Tile stile[12][12];
+
+	//srand((unsigned int)time(NULL));
 
 	int mineCount = 0;
+	int minenum = 5;	//지뢰를 설치하고 8개 내에는 지뢰 설치 금지
 
 	RenderWindow minesweeper(VideoMode(400, 400), "Start The Minesweeper");
 
@@ -32,16 +35,17 @@ int main()
 	{
 		for (int j = 1; j <= 10; j++)
 		{
-			tiles[i][j].count = 10;
-			tiles[i][j].flag = 0;
-			tiles[i][j].open = 0;
-
-			if (rand() % 5 == 0 && mineCount < 10)
+			if (rand() % 5 == 0 && mineCount < 10 && minenum >= 4)
 			{
 				tiles[i][j].count = 9;
 				mineCount++;
+				minenum = 0;
 			}
-			else tiles[i][j].count = 0;
+			else
+			{
+				tiles[i][j].count = 0;
+				minenum++;
+			}
 		}
 	}
 
